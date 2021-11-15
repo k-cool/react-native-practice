@@ -1,21 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+import Home from './components/Home/Home';
+import FormTodoList from './components/TodoList/FormTodoList';
+import FeedForm from './components/Feed/FeedForm';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name='Home'
+            component={Home}
+            options={{ title: 'Home' }}
+          />
+          <Stack.Screen
+            name='TodoList'
+            component={FormTodoList}
+            options={{ title: 'Todo List' }}
+          />
+          <Stack.Screen
+            name='Feed'
+            component={FeedForm}
+            options={{ title: 'Feed' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
